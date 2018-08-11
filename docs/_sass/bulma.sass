@@ -1,0 +1,77 @@
+@import "./bulma/sass/utilities/initial-variables"
+@import "./bulma/sass/utilities/functions"
+
+$blue: #1E88E5
+
+@import "./bulma/sass/utilities/_all.sass"
+@import "./bulma/sass/base/_all.sass"
+@import "./bulma/sass/elements/container.sass"
+@import "./bulma/sass/elements/content.sass"
+@import "./bulma/sass/layout/section.sass"
+@import "./bulma/sass/grid/_all.sass"
+
+
+html, body, .container, .columns
+  height: 100%
+
+.main-page-head
+  padding: 0.5rem
+  text-align: center
+  font-size: 1.5rem
+  a
+    color: #000
+    &:hover
+      text-decoration: underline
+
+.head
+  margin-bottom: 2rem
+  height: 72px
+  display: flex
+  .left
+    display: flex
+    flex-direction: row
+    justify-content: center
+    .icon
+      height: 64px
+  .right
+    display: flex
+    flex-direction: row
+    justify-content: center
+    padding: 0 4px
+    box-sizing: border-box
+  h1
+    font-size: 2em
+    color: $blue
+    line-height: 1.2
+    font-weight: 400
+
+  h2
+    font-size: 1.2em
+    line-height: 1
+
+  
+body
+  display: flex
+  flex-direction: column
+
+main
+  flex: 1
+
+.container
+  max-width: 960px
+
+.footer
+  .container
+    padding: 1.5em 1em
+
+.badge
+  height: 50px
+
+.centering-child
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
+.mockup
+  max-width: 250px
