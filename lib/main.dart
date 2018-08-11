@@ -50,7 +50,7 @@ List<TextSpan> rawToTextSpans(String str) {
   for (int i = 0; i < str.length; i++) {
     if (str[i] == '[' || str[i] == ']' || str[i] == '{' || str[i] == '}') {
       if (currentPart.length > 0 && currentPart != '[' && currentPart != '{') {
-        parts.add(currentPart.trim());
+        parts.add(currentPart);
       }
       currentPart = str[i] == '[' || str[i] == '{' ? str[i] : '';
     } else {
@@ -63,10 +63,6 @@ List<TextSpan> rawToTextSpans(String str) {
   for (int i = 0; i < parts.length; i++) {
     String part = parts[i];
 
-    if (i > 0 && part != '.' && part != ',') {
-      children.add(TextSpan(text: ' '));
-    }
-
     if (part.startsWith('[')) {
       // Type 2
       if (part.contains('|')) {
@@ -75,7 +71,7 @@ List<TextSpan> rawToTextSpans(String str) {
         final String title = components[1];
         children.add(LinkTextSpan(
           text: title,
-          url: 'https://en.wikipedia.org/wiki/' + wikipediaTitle,
+          url: Uri.encodeFull('https://en.wikipedia.org/wiki/' + wikipediaTitle),
         ));
       } else if (part.contains('http')) {
         List<String> components = part.substring(1).split(' ');
@@ -86,11 +82,12 @@ List<TextSpan> rawToTextSpans(String str) {
           text: title,
           url: url,
         ));
+        // f
       } else {
         final String title = part.substring(1);
         children.add(LinkTextSpan(
           text: title,
-          url: 'https://en.wikipedia.org/wiki/' + title,
+          url: Uri.encodeFull('https://en.wikipedia.org/wiki/' + title),
         ));
       }
     } else if (part.startsWith('{')) {
@@ -164,7 +161,7 @@ List<Widget> rawToWidgets(String rawContent, DateTime date) {
         text: 'Creative Commons Attribution-ShareAlike License',
         url: 'https://creativecommons.org/licenses/by-sa/3.0/us/',
       ),
-      TextSpan(text: '.'),
+      TextSpan(text: '. Latte is updated daily at 8:00 PM PST.'),
     ]),
     style: TextStyle(
       fontSize: 11.0,
@@ -172,6 +169,16 @@ List<Widget> rawToWidgets(String rawContent, DateTime date) {
   ));
 
   return widgets;
+}
+
+DateTime getLatestDate() {
+  final DateTime now = new DateTime.now().toUtc();
+
+  final DateTime latest = now.hour < 3 ? 
+      new DateTime.now().toUtc().subtract(new Duration(days: 2))
+    : new DateTime.now().toUtc().subtract(new Duration(days: 1));
+
+  return latest;
 }
 
 void main() => runApp(MyApp());
@@ -186,7 +193,6 @@ TextStyle contentTextStyle = TextStyle(
   height: 1.1,
 );
 
-
 class Main extends StatefulWidget {
   MainState createState() => MainState();
 }
@@ -194,14 +200,14 @@ class Main extends StatefulWidget {
 class MainState extends State<Main> {
   Future<List<Widget>> _response;
 
-  DateTime currentDate = new DateTime.now();
+  DateTime currentDate = getLatestDate();
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: currentDate,
-      firstDate: new DateTime(2000, 1),
-      lastDate: new DateTime.now()
+      firstDate: new DateTime(2010, 1),
+      lastDate: getLatestDate(),
     );
     if (picked != null && picked != currentDate)
       setState(() {
@@ -211,6 +217,7 @@ class MainState extends State<Main> {
   }
 
   void _loadContent() {
+    print(getLatestDate());
     setState(() {
       _response = showLoading();
 
