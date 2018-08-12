@@ -6,15 +6,8 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    
     <!-- https://pub.dartlang.org/packages/flutter_local_notifications -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
-    <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-        </intent-filter>
-    </receiver>
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -25,6 +18,13 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Latte"
         android:icon="@mipmap/ic_launcher">
+        <!-- https://pub.dartlang.org/packages/flutter_local_notifications -->
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
