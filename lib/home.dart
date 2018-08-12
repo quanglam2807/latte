@@ -179,7 +179,7 @@ DateTime getLatestDate() {
       new DateTime.now().toUtc().subtract(new Duration(days: 2))
     : new DateTime.now().toUtc().subtract(new Duration(days: 1));
 
-  return latest;
+  return new DateTime(latest.year, latest.month, latest.day);
 }
 
 TextStyle headingTextStyle = TextStyle(
