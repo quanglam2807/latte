@@ -5,12 +5,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Settings extends StatefulWidget {
+  final Function setDarkTheme;
+  Settings({Key key, this.setDarkTheme}) : super(key: key);
+
   @override
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
   bool _dailyNotification = false;
+  bool _darkTheme = false;
 
   @override
   void initState() {
@@ -23,12 +27,17 @@ class _SettingsState extends State<Settings> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _dailyNotification = (prefs.getBool('dailyNotification') ?? false);
+      _darkTheme = (prefs.getBool('darkTheme') ?? false);
     });
   }
 
   _setPref(key, value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(key, value);
+  }
+
+  _setDailyNotification(value) {
+
   }
 
   Future onSelectNotification(String payload) async {
@@ -54,8 +63,8 @@ class _SettingsState extends State<Settings> {
 
     var time = new Time(time3amUtc.hour, 0, 0);
     var androidPlatformChannelSpecifics =
-        new AndroidNotificationDetails('repeatDailyAtTime channel id',
-            'repeatDailyAtTime channel name', 'repeatDailyAtTime description');
+        new AndroidNotificationDetails('daily',
+            'Daily notification', 'Notify when a new release of daily news briefing is available.');
     var iOSPlatformChannelSpecifics =
         new IOSNotificationDetails();
     var platformChannelSpecifics = new NotificationDetails(
@@ -107,6 +116,21 @@ class _SettingsState extends State<Settings> {
                 } else {
                   _turnOffDailyNotification();
                 }
+              },
+            ),
+          ),
+          new ListTile(
+            title: const Text('Dark theme'),
+            onTap: () {  },
+            trailing: new Switch(
+              value: _darkTheme,
+              onChanged: (bool value) {
+                setState(() {
+                  _darkTheme = value;
+                });
+                _setPref('darkTheme', value);
+                print(widget.setDarkTheme);
+                widget.setDarkTheme(value);
               },
             ),
           ),

@@ -192,11 +192,14 @@ TextStyle contentTextStyle = TextStyle(
   height: 1.1,
 );
 
-class Main extends StatefulWidget {
-  MainState createState() => MainState();
+class Home extends StatefulWidget {
+  final Function setDarkTheme;
+  Home({Key key, this.setDarkTheme}) : super(key: key);
+
+  HomeState createState() => HomeState();
 }
 
-class MainState extends State<Main> {
+class HomeState extends State<Home> {
   Future<List<Widget>> _response;
 
   DateTime currentDate = getLatestDate();
@@ -234,7 +237,7 @@ class MainState extends State<Main> {
     if (choice.title == 'Settings') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Settings()),
+        MaterialPageRoute(builder: (context) => Settings(setDarkTheme: widget.setDarkTheme)),
       );
     }
     if (choice.title == 'Refresh') {
@@ -251,11 +254,9 @@ class MainState extends State<Main> {
     _loadContent();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(new DateFormat.yMMMMEEEEd().format(currentDate)),
           actions: <Widget>[
