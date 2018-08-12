@@ -11,6 +11,8 @@ dependencies:
   intl: ^0.15.7
   url_launcher: ^3.0.3
   package_info: ^0.3.2
+  flutter_local_notifications: ^0.3.6
+  shared_preferences: ^0.4.2
 
 dev_dependencies:
   flutter_test:
