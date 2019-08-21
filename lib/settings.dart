@@ -22,6 +22,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   bool _dailyNotification = false;
   bool _darkTheme = false;
+  bool _inAppBrowser = false;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _SettingsState extends State<Settings> {
     setState(() {
       _dailyNotification = (prefs.getBool('dailyNotification') ?? false);
       _darkTheme = (prefs.getBool('darkTheme') ?? false);
+      _inAppBrowser = (prefs.getBool('inAppBrowser') ?? false);
     });
   }
 
@@ -133,8 +135,20 @@ class _SettingsState extends State<Settings> {
                   _darkTheme = value;
                 });
                 _setPref('darkTheme', value);
-                print(widget.setDarkTheme);
                 widget.setDarkTheme(value);
+              },
+            ),
+          ),
+          new ListTile(
+            title: const Text('In-app Browser'),
+            onTap: () {  },
+            trailing: new Switch(
+              value: _inAppBrowser,
+              onChanged: (bool value) {
+                setState(() {
+                  _inAppBrowser = value;
+                });
+                _setPref('inAppBrowser', value);
               },
             ),
           ),

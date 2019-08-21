@@ -3,6 +3,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LinkTextSpan extends TextSpan {
 
@@ -22,8 +23,15 @@ class LinkTextSpan extends TextSpan {
   LinkTextSpan({ String url, String text }) : super(
     style: TextStyle(color: Colors.blue[500]),
     text: text ?? url,
-    recognizer: new TapGestureRecognizer()..onTap = () {
-      launch(url);
+    recognizer: new TapGestureRecognizer()..onTap = () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool inAppBrowser = (prefs.getBool('inAppBrowser') ?? false);
+      // https://github.com/flutter/plugins/blob/master/packages/url_launcher/lib/url_launcher.dart
+      launch(
+        url,
+        forceSafariVC: inAppBrowser, // iOS only
+        forceWebView: inAppBrowser, // Android only
+      );
     }
   );
 }
