@@ -15,8 +15,8 @@
 # in the templates via {{ site.myvariable }}.
 title: Latte
 email: latteapp.developer@gmail.com
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://latte.quanglam2807.com" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/latte" # the subpath of your site, e.g. /blog
+url: "https://quanglam2807.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 latte_version: 2.1.0
 
