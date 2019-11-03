@@ -60,7 +60,7 @@ Promise.resolve()
   // Get latest campaign
   .then(() => {
     console.log('Getting latest campaign...');
-    const opts = { count: 1, sort_field: 'create_time' };
+    const opts = { count: 1, sort_field: 'create_time', sort_dir: 'DESC' };
     return mailchimp.get('/campaigns', opts);
   })
   .then((results) => {
