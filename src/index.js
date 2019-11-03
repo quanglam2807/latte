@@ -7,7 +7,7 @@ const MAILCHIMP_LIST_ID = 'b892a7798a';
 const mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const getLatestDateObj = () => {
   const d = new Date();
