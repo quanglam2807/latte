@@ -1,4 +1,4 @@
-# Latte [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](LICENSE) [![GitHub Actions](https://github.com/actions/quanglam2807/latte/start_campaign/badge.svg)](.github/workflows/start_campaign.yml)
+# Latte [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](LICENSE) [![GitHub Actions](https://github.com/quanglam2807/latte//workflows/Start%20Campaign/badge.svg)](.github/workflows/start_campaign.yml)
 
 **[Latte](https://quanglam2807.com/latte)** - Distraction-Free Daily News Briefing.
 

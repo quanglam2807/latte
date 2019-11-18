@@ -1,4 +1,4 @@
-name: start_campaign
+name: Start Campaign
 
 on:
   push:
@@ -23,6 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       with:
+        fetch-depth: 1
         submodules: false
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -33,5 +34,5 @@ jobs:
     - run: yarn start
       env:
         CI: true
-        MAILCHIMP_LIST_ID: b892a7798a
+        MAILCHIMP_LIST_ID: ${{ secrets.MAILCHIMP_LIST_ID }}
         MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
