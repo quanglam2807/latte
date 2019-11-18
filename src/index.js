@@ -2,7 +2,7 @@ const Mailchimp = require('mailchimp-api-v3');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const MAILCHIMP_LIST_ID = 'b892a7798a';
+const { MAILCHIMP_LIST_ID } = process.env;
 
 const mailchimp = new Mailchimp(process.env.MAILCHIMP_API_KEY);
 

@@ -1,0 +1,37 @@
+name: start_campaign
+
+on:
+  push:
+    branches:
+      - master # Push events on master branch
+  pull_request:
+    branches:
+      - master # Push events on master branch
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 3 * * *'
+
+jobs:
+  start_campaign:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: false
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn
+    - run: yarn lint
+    - run: yarn start
+      env:
+        CI: true
+        MAILCHIMP_LIST_ID: b892a7798a
+        MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
